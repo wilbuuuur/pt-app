@@ -8,6 +8,7 @@ import { API_URL_CUSTOMERS } from '../constants';
 import AddCustomer from './AddCustomer';
 import EditCustomer from './EditCustomer';
 import AddTraining from './AddTraining';
+import { CSVLink } from "react-csv";
 
 export default function Customerlist() {
 
@@ -48,6 +49,22 @@ export default function Customerlist() {
         { field: 'phone', sortable: true, filter: true},
         
     ]);
+
+    const headers = [
+        { label: "First Name", key: "firstname" },
+        { label: "Last Name", key: "lastname" },
+        { label: "Streetaddress", key: "streetaddress" },
+        { label: "Postcode", key: "postcode" },
+        { label: "City", key: "city" },
+        { label: "Email", key: "email" },
+        { label: "Phone", key: "phone" },
+      ];
+      
+    const csvReport = {
+        filename: 'Report.csv',
+        headers: headers,
+        data: customers
+    }
 
     const getCustomers = () => {
 
@@ -93,8 +110,6 @@ export default function Customerlist() {
     }
 
     const editCustomer = (url, updateCustomer) => {
-        console.log(url)
-        console.log(updateCustomer)
         fetch(url, {
             method: 'PUT',
             body: JSON.stringify(updateCustomer),
@@ -134,6 +149,7 @@ export default function Customerlist() {
     return(
         <div className="Customers">
         <AddCustomer addCustomer={addCustomer}/>
+        <CSVLink {...csvReport}>Export to CSV</CSVLink>
         <div className="ag-theme-material" style={{ height: 550, width: '100%', margin: 'auto' }}>
             <AgGridReact
                 rowData={customers}
