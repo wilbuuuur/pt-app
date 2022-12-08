@@ -149,7 +149,7 @@ export default function Customerlist() {
     return(
         <div className="Customers">
         <AddCustomer addCustomer={addCustomer}/>
-        <CSVLink {...csvReport}>Export to CSV</CSVLink>
+        <CSVLink Button {...csvReport}>Export to CSV</CSVLink>
         <div className="ag-theme-material" style={{ height: 550, width: '100%', margin: 'auto' }}>
             <AgGridReact
                 rowData={customers}
